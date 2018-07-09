@@ -135,7 +135,7 @@ class Mouse(pygame.sprite.Sprite):
 
 class Settings(object):
     menu = {"root":["Play","Help", "Credits", "Options","Quit"],
-            "Options":["Change screen resolution"],
+            "Options":["Change screen resolution", "Sounds off"],
             "Change screen resolution":["640x400","800x640","1024x800","1440x850","1920x1080","2560x1440","3840x2160","4096x2160"],
             "Credits":["Simon HEPPNER"],
             "Help":["How to play", "How to win"],
@@ -220,6 +220,7 @@ class PygView(object):
         self.fps = fps
         self.playtime = 0.0
         self.font = pygame.font.SysFont('mono', 24, bold=True)
+        self.sounds = True
         # --- so la la paint ---
         self.allgroup =  pygame.sprite.LayeredUpdates()
         self.mousegroup = pygame.sprite.Group()
@@ -248,10 +249,12 @@ class PygView(object):
         y = self.height - 120
         if pygame.mouse.get_pos()[1] < menuy - 15:
             m.previousitem()
-            self.sound1.play()
+            if self.sounds is True:
+                self.sound1.play()
         elif pygame.mouse.get_pos()[1] > menuy + 15:
             m.nextitem()
-            self.sound1.play()
+            if self.sounds is True:
+                self.sound1.play()
         
 
     def run(self):
@@ -272,7 +275,8 @@ class PygView(object):
                     running = False 
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
-                        self.sound2.play()
+                        if self.sounds is True:
+                            self.sound2.play()
                         result = m.get_text()
                         print(result)
                         if result is None:
@@ -305,6 +309,12 @@ class PygView(object):
                             text = "Programmer of this game!\n:D"
                             textscroller_vertical.PygView(text, self.width, self.height).run()
                             pygame.display.set_caption("Press ESC to quit")
+                        elif result == "Sounds off":
+                            Settings.menu["Options"][1] = "Sounds on"
+                            self.sounds = False
+                        elif result == "Sounds on":
+                            Settings.menu["Options"][1] = "Sounds off"
+                            self.sounds = True
                         elif result == "Quit":
                             print("Bye")
                             pygame.quit()
