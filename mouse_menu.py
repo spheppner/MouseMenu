@@ -210,12 +210,8 @@ class PygView(object):
         pygame.mixer.pre_init(44100, -16, 2, 2048) 
 
         pygame.init()
-        
-        #self.cash = pygame.mixer.Sound(os.path.join("data","cash.wav"))
-        #jump = pygame.mixer.Sound(os.path.join('data','jump.wav'))  #load sound
-        #self.sound1 = pygame.mixer.Sound(os.path.join('data','Pickup_Coin.wav'))
-        #self.sound2 = pygame.mixer.Sound(os.path.join('data','Jump.wav'))
-        #self.sound3 = pygame.mixer.Sound(os.path.join('data','mix.wav'))
+        self.sound1 = pygame.mixer.Sound(os.path.join('data','select_sound.wav'))
+        self.sound2 = pygame.mixer.Sound(os.path.join('data','select_sound2.wav'))
         pygame.display.set_caption("Press ESC to quit")
         PygView.width = width
         PygView.height = height
@@ -252,8 +248,10 @@ class PygView(object):
         y = self.height - 120
         if pygame.mouse.get_pos()[1] < menuy - 15:
             m.previousitem()
+            self.sound1.play()
         elif pygame.mouse.get_pos()[1] > menuy + 15:
             m.nextitem()
+            self.sound1.play()
         
 
     def run(self):
@@ -274,9 +272,8 @@ class PygView(object):
                     running = False 
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
-                        #self.sound3.play()
+                        self.sound2.play()
                         result = m.get_text()
-                        #print(m.get_text())
                         print(result)
                         if result is None:
                             break 
@@ -299,12 +296,15 @@ class PygView(object):
                         elif result == "How to play":
                             text = "play this game\n as you like\n and win!"
                             textscroller_vertical.PygView(text, self.width, self.height).run()
+                            pygame.display.set_caption("Press ESC to quit")
                         elif result == "How to win":
                             text = "to win the game:\n shoot down enemies\n avoid catching bullets"
                             textscroller_vertical.PygView(text, self.width, self.height).run()
+                            pygame.display.set_caption("Press ESC to quit")
                         elif result == "Simon HEPPNER":
                             text = "Programmer of this game!\n:D"
                             textscroller_vertical.PygView(text, self.width, self.height).run()
+                            pygame.display.set_caption("Press ESC to quit")
                         elif result == "Quit":
                             print("Bye")
                             pygame.quit()
