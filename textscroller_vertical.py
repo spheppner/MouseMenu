@@ -6,7 +6,6 @@ like the linux command "less" or like the intro scene in starwars movies
 
 
 import pygame 
-#import simpledefense
 import random
 import sys
 import os.path
@@ -35,7 +34,7 @@ class PygView(object):
         #self.sound1 = pygame.mixer.Sound(os.path.join('data','Pickup_Coin.wav'))
         #self.sound2 = pygame.mixer.Sound(os.path.join('data','Jump.wav'))
         #self.sound3 = pygame.mixer.Sound(os.path.join('data','mix.wav'))
-        pygame.display.set_caption("Press ESC to quit, curosr keys / PgUp, PgDown to scroll")
+        pygame.display.set_caption("Press ESC to go back")
         self.text = text
         self.bgcolor = bgcolor
         self.textcolor = textcolor
